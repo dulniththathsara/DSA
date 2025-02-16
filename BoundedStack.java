@@ -1,0 +1,100 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
+ */
+package github;
+
+import java.util.NoSuchElementException;
+
+/**
+ *
+ * @author Dulnith
+ */
+
+
+public class BoundedStack {
+
+    private int maxSize; // size of the stack array
+    private int[] array; // array creation
+    private int tos;     // top of the stack
+
+    public BoundedStack(int s) {
+        maxSize = s; // set array size
+        array = new int[maxSize];
+        tos = -1; // no items
+    }
+
+
+    public boolean isEmpty() {
+        return tos == -1; // stack is empty if the top is -1
+    }
+
+
+    public boolean isFull() {
+        return tos == maxSize - 1; // stack is full if the top reaches maxSize - 1
+    }
+
+
+    public void push(int j) {
+        if (isFull()) {
+            throw new IllegalStateException("Stack is full.");
+        } else {
+            array[++tos] = j; // increment top and insert item
+        }
+    }
+
+
+    public int pop() {
+        if (isEmpty()) {
+            throw new NoSuchElementException("Stack is empty.");
+        } else {
+            return array[tos--]; // return item and decrement top
+        }
+    }
+
+
+    public int peek() {
+        if (tos == -1) {
+            throw new NoSuchElementException("Stack is empty");
+        } else {
+            return array[tos];
+        }
+    }
+
+
+    public void print() {
+        if (isEmpty()) {
+            System.out.println("Stack is empty.");
+            return;
+        }
+
+        System.out.print("Stack elements: [");
+        for (int i = tos; i >= 0; i--) {
+            System.out.print(array[i] + (i > 0 ? ", " : ""));
+        }
+        System.out.println("]");
+    }
+
+
+    public static void main(String[] args) {
+        BoundedStack stack = new BoundedStack(5); // Create a stack with a capacity of 5
+
+        System.out.println("Pushing elements onto the stack...");
+        stack.push(5);
+        stack.push(10);
+        stack.push(15);
+        stack.push(20);
+        stack.push(25);
+
+        stack.print(); // Display the stack elements
+
+        System.out.println("\nPeeking top element: " + stack.peek());
+
+        System.out.println("\nPopping elements...");
+        while (!stack.isEmpty()) {
+            System.out.println("Popped: " + stack.pop());
+        }
+
+        stack.print(); // Display the stack elements after popping
+    }
+}
